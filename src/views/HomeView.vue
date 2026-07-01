@@ -1,16 +1,5 @@
 <template>
   <div>
-    <!-- Navbar público -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="#">🏆 Chúntaro League</a>
-        <div class="d-flex">
-          <!-- Botón discreto para el Admin -->
-          <router-link to="/login" class="btn btn-outline-light btn-sm">Acceso Admin</router-link>
-        </div>
-      </div>
-    </nav>
-
     <!-- Contenido principal -->
     <div class="container mt-5">
       <div class="text-center mb-5">

@@ -1,0 +1,63 @@
+/* =========================================
+   VARIABLES GLOBALES DE COLOR
+   ========================================= */
+:root {
+  /* Marca */
+  --color-primary: #51241f;
+  --color-primary-light: #6a322c; /* Para estados 'hover' en botones */
+  --color-accent: #e5b25d;
+  --color-accent-hover: #d4a04c;
+
+  /* Neutros y Fondos */
+  --color-bg: #f4f5f7;
+  --color-surface: #ffffff;
+
+  /* Tipografía */
+  --color-text-main: #1e293b;
+  --color-text-muted: #64748b; /* Para fechas, subtítulos, etc. */
+
+  /* Estados del partido/juego */
+  --color-success: #10b981; /* Verde cancha - Para victorias o "Jugador Disponible" */
+  --color-danger: #ef4444; /* Rojo - Para derrotas o errores */
+}
+
+/* =========================================
+   ESTILOS BASE
+   ========================================= */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family:
+    "Inter",
+    -apple-system,
+    sans-serif; /* Sugerencia de fuente limpia */
+}
+
+/* Ejemplo de utilidad en Vue */
+.card-jugador {
+  background-color: var(--color-surface);
+  border-top: 4px solid var(--color-primary);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-reta-fifa {
+  background-color: var(--color-accent);
+  color: #111;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-reta-fifa:hover {
+  background-color: var(--color-accent-hover);
+  cursor: pointer;
+}
+
+.color {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+}

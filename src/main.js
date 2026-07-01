@@ -6,6 +6,7 @@ import router from "./router";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "./assets/main.css";
 import axios from "axios";
 
 // Configuración global de Axios para Laravel Sanctum
