@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
+
 /* =========================================
    VARIABLES GLOBALES DE COLOR
    ========================================= */
@@ -9,7 +11,7 @@
   --color-accent-hover: #d4a04c;
 
   /* Neutros y Fondos */
-  --color-bg: #f4f5f7;
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
 
   /* Tipografía */
@@ -20,6 +22,8 @@
   --color-success: #10b981; /* Verde cancha - Para victorias o "Jugador Disponible" */
   --color-danger: #ef4444; /* Rojo - Para derrotas o errores */
 }
+
+/* FONTS */
 
 /* =========================================
    ESTILOS BASE
@@ -33,6 +37,19 @@ body {
     sans-serif; /* Sugerencia de fuente limpia */
 }
 
+/* Tipo de letra para títulos (Logotipo) */
+.titulo-banner {
+  font-family: "Black Ops One", sans-serif;
+  font-weight: 400;
+  font-size: 68px;
+  color: var(--color-primary);
+}
+
+.linea {
+  width: 100%;
+  height: 5vh;
+  background-color: var(--color-primary);
+}
 /* Ejemplo de utilidad en Vue */
 .card-jugador {
   background-color: var(--color-surface);

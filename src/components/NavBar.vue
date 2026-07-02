@@ -1,30 +1,53 @@
 <template>
+  <!--
+    Aquí está la magia:
+    1. fixed-top hace que el menú siga a la cámara.
+    2. :class evalúa si isScrolled es true o false para cambiar entre sólido y transparente.
+  -->
   <nav
-    class="navbar fixed-top navbar-expand-lg custom-navbar"
-    :class="isScrolled ? 'navbar-solid shadow-sm' : 'navbar-transparent'"
+    :class="[
+      'navbar navbar-expand-lg navbar-dark fixed-top custom-navbar',
+      isScrolled ? 'navbar-solid shadow' : 'navbar-transparent',
+    ]"
   >
-    <div class="container">
-      <a class="navbar-brand text-white fw-bold" href="#"> EQUIPO FC </a>
+    <div class="container position-relative mt-3">
+      <!-- LOGO A LA IZQUIERDA (CUELGA A LA MITAD DEL BORDE) -->
+      <router-link class="navbar-brand d-flex align-items-center gap-2" to="/">
+        <img src="@/assets/img/escudo.png" alt="Escudo Chuntaro FC" class="logo-escudo" />
+      </router-link>
 
+      <!-- Botón para móviles -->
       <button
-        class="navbar-toggler border-0"
+        class="navbar-toggler border-0 ms-auto"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
       >
-        <span class="navbar-toggler-icon" style="filter: invert(1)"></span>
+        <span class="navbar-toggler-icon"></span>
       </button>
 
+      <!-- Contenedor de las opciones -->
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center">
+        <!-- OPCIONES DEL MENÚ (Alineadas a la derecha con ms-auto) -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mt-3 mt-lg-0 align-items-center gap-3">
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Inicio</a>
+            <router-link class="nav-link text-white fw-semibold" to="/">Inicio</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Plantilla</a>
+            <router-link class="nav-link text-white fw-semibold" to="/"
+              >Martes Botanero</router-link
+            >
           </li>
-          <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
-            <a class="nav-link btn-reta" href="#">⚡ Retar en FIFA</a>
+          <li class="nav-item">
+            <router-link to="/" class="nav-link text-white fw-semibold"> Plantilla </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link
+              to="/torneo-express"
+              class="text-decoration-none btn-reta text-center d-inline-block"
+            >
+              Torneo
+            </router-link>
           </li>
         </ul>
       </div>
@@ -74,13 +97,13 @@ onUnmounted(() => {
 
 /* Estado 2: Al hacer scroll (Color sólido) */
 .navbar-solid {
-  background-color: var(--color-primary); /* El tinto #51241F */
+  background-color: var(--color-primary, #51241f); /* El tinto #51241F */
   padding: 10px 0; /* Se hace un poco más delgado al scrollear */
 }
 
 /* Estilo para el botón de la reta de FIFA */
 .btn-reta {
-  background-color: var(--color-accent); /* El dorado #E5B25D */
+  background-color: var(--color-accent, #e5b25d); /* El dorado #E5B25D */
   color: #1e293b !important;
   font-weight: 700;
   border-radius: 6px;
@@ -104,5 +127,39 @@ onUnmounted(() => {
 
 .nav-link.text-white:hover {
   opacity: 1;
+}
+
+/* Estilos específicos del navbar y el escudo colgante */
+.navbar-brand {
+  letter-spacing: 0.5px;
+  z-index: 1050; /* Asegura que el logo esté por encima de otros elementos */
+  position: absolute;
+  top: 100%;
+  transform: translateY(-50%);
+  left: 15px;
+  transition: all 0.4s ease;
+}
+
+.logo-escudo {
+  width: 100px;
+  height: auto;
+  transition: width 0.4s ease;
+}
+
+/* Reducimos sutilmente el escudo cuando el menú se contrae al hacer scroll */
+.navbar-solid .logo-escudo {
+  width: 80px;
+}
+
+/* En pantallas móviles fijamos la posición vertical para evitar que el logo
+   se mueva hacia abajo al expandir el menú desplegable */
+@media (max-width: 991.98px) {
+  .navbar-brand {
+    top: 40px;
+  }
+
+  .navbar-solid .navbar-brand {
+    top: 30px;
+  }
 }
 </style>
