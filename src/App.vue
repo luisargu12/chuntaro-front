@@ -7,12 +7,12 @@
     <RouterView />
   </div>
 
-  <Footer />
+  <AppFooter />
 </template>
 <script setup>
 import { RouterView } from "vue-router";
 import NavBar from "./components/NavBar.vue";
-import Footer from "./components/Footer.vue";
+import AppFooter from "./components/AppFooter.vue";
 </script>
 <style>
 /* Aquí pondremos estilos personalizados más adelante, como el fondo oscuro para las retas */

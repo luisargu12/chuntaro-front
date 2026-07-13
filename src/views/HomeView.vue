@@ -3,19 +3,55 @@
     <!-- Contenido principal -->
     <div>
       <!-- HERO SECTION -->
-      <header class="hero-section d-flex align-items-center justify-content-center text-center">
+      <header class="hero-section d-flex align-items-end justify-content-start text-start pb-5">
+        <!-- Imagen de fondo animable -->
+        <div class="hero-bg"></div>
         <!-- Capa oscura para que el texto blanco resalte -->
         <div class="hero-overlay"></div>
 
         <!-- Contenido del Hero -->
-        <div class="container position-relative z-1 mt-5">
-          <h2></h2>
+        <div class="container position-relative z-2">
+          <div style="overflow: hidden">
+            <h2 class="titulo-banner mb-0">GANEN O MUERAN</h2>
+          </div>
+          <div class="linea mt-3"></div>
         </div>
       </header>
 
-      <section class="container-sm my-5">
-        <h2 class="titulo-banner">¡MÁS QUE UN SENTIR!</h2>
-        <div class="linea mt-3"></div>
+      <section class="estadisticas py-5 text-white">
+        <div class="container text-center">
+          <h3 class="fw-bold mb-4 py-3 titulo">
+            La élite del fútbol para personas retiradas o con autismo
+          </h3>
+          <p class="text-white-50 fs-5 mb-5">Líderes en:</p>
+
+          <div class="row g-4 justify-content-center">
+            <div class="col-6 col-md-3">
+              <div class="stat-card p-4">
+                <h2 class="display-3 fw-bold text-accent">{{ Math.round(stats.lesiones) }}</h2>
+                <p class="mb-0 text-white-50">Lesiones acumuladas</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="stat-card p-4">
+                <h2 class="display-3 fw-bold text-accent">{{ Math.round(stats.inactivos) }}</h2>
+                <p class="mb-0 text-white-50">Jugadores inactivos</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="stat-card p-4">
+                <h2 class="display-3 fw-bold text-accent">{{ Math.round(stats.expulsiones) }}</h2>
+                <p class="mb-0 text-white-50">Expulsiones</p>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="stat-card p-4">
+                <h2 class="display-3 fw-bold text-accent">{{ Math.round(stats.derrotas) }}</h2>
+                <p class="mb-0 text-white-50">Derrotas</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
       <!-- CONTENIDO PARA HACER SCROLL -->
       <main class="container py-5 my-5">
@@ -83,7 +119,73 @@
 </template>
 
 <script setup>
-// Aquí más adelante pondremos la lógica para crear el torneo rápido
+import { onMounted, reactive } from "vue";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Registrar el plugin ScrollTrigger de GSAP
+gsap.registerPlugin(ScrollTrigger);
+
+// Estado reactivo para almacenar los números que se animarán
+const stats = reactive({
+  lesiones: 0,
+  inactivos: 0,
+  expulsiones: 0,
+  derrotas: 0,
+});
+
+onMounted(() => {
+  const tl = gsap.timeline();
+
+  // 1. Zoom out suave de la imagen de fondo (Ken Burns)
+  gsap.fromTo(".hero-bg", { scale: 1.25 }, { scale: 1, duration: 3, ease: "power2.out" });
+
+  // 2. Revelado del título emergiendo de la máscara (y: 100% a y: 0)
+  tl.fromTo(
+    ".titulo-banner, .titulo",
+    {
+      y: "100%",
+      opacity: 0,
+    },
+    {
+      y: "0%",
+      opacity: 1,
+      duration: 1,
+      ease: "power4.out",
+      delay: 0.2,
+    },
+  );
+
+  // 3. Expansión de la línea de izquierda a derecha
+  tl.fromTo(
+    ".linea",
+    {
+      scaleX: 0,
+      transformOrigin: "left", // Expande de izquierda a derecha
+    },
+    {
+      scaleX: 1,
+      duration: 1.2,
+      ease: "power3.out",
+    },
+    "-=0.6", // Se solapa con el final del texto
+  );
+
+  // 4. Animación de los contadores con ScrollTrigger
+  gsap.to(stats, {
+    lesiones: 12,
+    inactivos: 7,
+    expulsiones: 4,
+    derrotas: 15,
+    duration: 2,
+    ease: "power1.out",
+    scrollTrigger: {
+      trigger: ".estadisticas",
+      start: "top 80%", // Comienza cuando la parte superior de la sección entra al 80% del viewport
+      toggleActions: "play none none none",
+    },
+  });
+});
 </script>
 
 <style scoped>
@@ -98,15 +200,52 @@
 .hero-section {
   min-height: 85vh;
   position: relative;
+  overflow: hidden; /* Evita que el zoom de la imagen se salga del header */
+  color: white;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
   background-image: url("@/assets/img/hero.jpg");
   background-size: cover;
   background-position: center;
-  color: white;
+  z-index: 0;
 }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+  z-index: 1;
+}
+.z-2 {
+  z-index: 2;
+}
+
+.estadisticas {
+  background-color: var(--color-primary);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+.text-accent {
+  color: var(--color-accent);
+}
+
+.hero-text {
+  font-family: "Black Ops One", sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
 }
 .btn-reta {
   background-color: #e5b25d;
